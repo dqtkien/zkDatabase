@@ -59,7 +59,7 @@ jobs:
   build:
     name: Build & Push Docker Images and Push to GitOps
     needs: detect-changes
-    runs-on: [self-hosted, linux]
+    runs-on: [self-hosted]
     outputs:
       changed_services: ${{ steps.build.outputs.changed_services }}
     env:
@@ -112,7 +112,7 @@ jobs:
   gitops-push:
     name: Push Changes to GitOps
     needs: build
-    runs-on: [self-hosted, linux]
+    runs-on: [self-hosted]
     env:
       version: ${{ github.sha }}
       gitopsbranch: main
@@ -144,7 +144,7 @@ jobs:
           git push origin ${{ env.gitopsbranch }}
   cleanup:
     name: Cleanup
-    runs-on: [self-hosted, linux]
+    runs-on: [self-hosted]
     steps:
       - name: Cleanup
         run: |
